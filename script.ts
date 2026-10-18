@@ -126,6 +126,40 @@ function renderList(): void {
     editButtonIcon.className = "bi bi-pen-fill";
     editButton.append(editButtonIcon);
   }
+  //HTML elemente holen
+  const userAnzahlEl: HTMLElement = document.getElementById("UserAnzahl")!;
+  const VornameLaengeDurchEl: HTMLElement = document.getElementById("VornameLaengDurch")!;
+
+  //Aufgabe a) Lass UserAnzahlBerechnung als Nummer dargestellt werden
+  //also länge des Arrays userList.users als Zahl der Statistik
+  let UserAnzahlBerechnung: number = userList.users.length;
+  userAnzahlEl.textContent = UserAnzahlBerechnung.toString();
+  //.textContent um die Zahl in HTML anzuzeigen, da textContent nur Strings akzeptiert.
+  //.toString() um die Zahl in einen String umzuwandeln, damit sie in HTML angezeigt werden kann.
+
+  //Aufgabe b)
+  //erstellung einer Hilfsvariable die den Wert 0 hat
+  let summeBuchstaben: number= 0;
+  //Start der Schleife
+  // geh die liste userList.users von oben nach unten durch und addiere die länge des Vornamens jedes Users zur Hilfsvariable summeBuchstaben
+  for (const user of userList.users) {
+    //addiert die Länge des Vornamens jedes Users zur Hilfsvariable summeBuchstaben
+    // user.givenName.length gibt die Länge des Vornamens des aktuellen Users zurück
+    summeBuchstaben += user.givenName.length;
+    //hier endet die Schleife (Programm springt so lange hoch bis jeder Nutzer durchlaufen wurde)
+  }
+  //sicherheitsabfrage, dass die Liste nicht leer ist, um eine Division durch 0 zu vermeiden
+  if (UserAnzahlBerechnung > 0) {
+    // Durchschnitt berechnen: Gesamtsumme der Buchstaben geteilt durch die Anzahl der Nutzer
+    let durchschnitt: number = summeBuchstaben / UserAnzahlBerechnung;
+
+    // Das berechnete Ergebnis als Text in das HTML-Feld schreiben
+    // Auch hier nutzen wir .toString(), weil .textContent nur reinen Text (Strings) akzeptiert
+    VornameLaengeDurchEl.textContent = durchschnitt.toString();
+  } else {
+    // Falls die Liste komplett leer ist (0 Nutzer), wird direkt eine "0" ins HTML geschrieben
+    VornameLaengeDurchEl.textContent = "0";
+  }
 }
 
 function addMessage(message: string): void {
